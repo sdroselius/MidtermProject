@@ -8,9 +8,9 @@
 
 		<properties>
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/FIXME?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
-			<property name="jakarta.persistence.jdbc.user" value="FIXME" />
-			<property name="jakarta.persistence.jdbc.password" value="FIXME" />
+				value="jdbc:mysql://localhost:3306/bookbuddiesdb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />
+			<property name="jakarta.persistence.jdbc.user" value="bookworm" />
+			<property name="jakarta.persistence.jdbc.password" value="bookworm" />
 			<property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
 
 			<property name="hibernate.show_sql" value="true" />
