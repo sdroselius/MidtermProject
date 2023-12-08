@@ -1,5 +1,7 @@
 package com.skilldistillery.bookbuddies.data;
 
-public interface UserDAO {
+import com.skilldistillery.bookbuddies.entities.User;
 
+public interface UserDAO {
+	User authenticateUser(String username, String password);
 }

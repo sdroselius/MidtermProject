@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Book Buddies</title>
 </head>
 <body>
 
+<h1>Book Buddies</h1>
+
+${SMOKETEST}  <!-- TEMPORARY, DELETE LATER -->
 </body>
 </html>
