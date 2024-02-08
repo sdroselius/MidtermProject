@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Book Buddies</title>
 </head>
-<body>
+<body>  
 
 <h1>Book Buddies</h1>
 
