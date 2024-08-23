@@ -9,6 +9,6 @@
 <body>
 
 <h1>Welcome to Pet Tinder</h1>
-
+${SMOKETEST} <!-- DELETE THIS LATER -->
 </body>
 </html>
