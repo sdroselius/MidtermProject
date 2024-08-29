@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+body {
+	background-color: lightgrey;
+}
+
+.card-img-top {
+	height: 20vw !important;
+	object-fit: cover;
+}
+
+.carousel-inner>.carousel-item>img {
+	height: 50vw;
+	width: 100%;
+	min-height: 300px;
+	max-height: 300px;
+}
+
+#brandLogo {
+	width: 10vw;
+	height: 10vw;
+}
