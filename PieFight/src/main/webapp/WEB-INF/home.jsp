@@ -10,5 +10,7 @@
 
 	<h1>Welcome to the Pie Fight</h1>
 	
+	<h2>${SMOKETEST}</h2> <!-- DELETE ME -->
+	
 </body>
 </html>
