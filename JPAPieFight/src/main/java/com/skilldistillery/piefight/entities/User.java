@@ -1,7 +1,12 @@
 package com.skilldistillery.piefight.entities;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +23,15 @@ public class User {
 	private String password;
 	private Boolean enabled;
 	private String role;
+	
+	@Column(name = "create_date")
+	@CreationTimestamp
+	private LocalDateTime createDate;
+
+	@Column(name = "last_update")
+	@UpdateTimestamp
+	private LocalDateTime lastUpdate;
+
 
 	public User() {
 		super();
@@ -61,6 +75,22 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public LocalDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
+	}
+
+	public LocalDateTime getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(LocalDateTime lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 	@Override
