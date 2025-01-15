@@ -12,11 +12,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class UserTest {
+class PieTypeTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private PieType pieType;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,41 +31,26 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		pieType = em.find(PieType.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		user = null;
+		pieType = null;
 	}
 
 	@Test
-	void test_User_entity_mapping() {
-		assertNotNull(user);
-		assertEquals("admin", user.getUsername());
+	void test_PieType_entity_mapping() {
+		assertNotNull(pieType);
+		assertEquals("Fruit", pieType.getName());
 	}
 
 	@Test
-	void test_User_Recipe_OneToMany_empty_mapping() {
-		assertNotNull(user);
-		assertNotNull(user.getRecipes());
-		assertTrue(user.getRecipes().size() == 0);
-	}
-	
-	@Test
-	void test_User_Recipe_OneToMany_mapping() {
-		user = em.find(User.class, 2);
-		assertNotNull(user);
-		assertNotNull(user.getRecipes());
-		assertTrue(user.getRecipes().size() > 0);
-	}
-	
-	@Test
-	void test_User_RecipeRating_ManyToMany_mapping() {
-		assertNotNull(user);
-		assertNotNull(user.getRecipeRatings());
-		assertTrue(user.getRecipeRatings().size() > 0);
+	void test_PieType_Pie_ManyToMany_mapping() {
+		assertNotNull(pieType);
+		assertNotNull(pieType.getPies());
+		assertTrue(pieType.getPies().size() > 0);
 	}
 	
 }

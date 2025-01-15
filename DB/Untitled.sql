@@ -28,8 +28,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role` VARCHAR(45) NULL,
   `create_date` DATETIME NULL,
   `last_update` VARCHAR(45) NULL,
-  `about_me` TEXT NULL,
-  `image_url` VARCHAR(2000) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -96,7 +94,6 @@ CREATE TABLE IF NOT EXISTS `recipe` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NULL,
   `description` TEXT NULL,
-  `image_url` VARCHAR(2000) NULL,
   `prep_time_minutes` INT NULL,
   `cook_time_minutes` INT NULL,
   `ingredients` TEXT NULL,
@@ -157,7 +154,7 @@ DROP TABLE IF EXISTS `recipe_comment` ;
 CREATE TABLE IF NOT EXISTS `recipe_comment` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `content` VARCHAR(45) NULL,
-  `create_date` DATETIME NULL,
+  `create_date` VARCHAR(45) NULL,
   `user_id` INT NOT NULL,
   `recipe_id` INT NOT NULL,
   `in_reply_to_id` INT NULL,
@@ -198,9 +195,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `piefightdb`;
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `create_date`, `last_update`, `about_me`, `image_url`) VALUES (1, 'admin', 'test', 1, 'ADMIN', '2023-03-03', '2023-03-03', NULL, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `create_date`, `last_update`, `about_me`, `image_url`) VALUES (2, 'rob', 'test', 1, NULL, '2023-03-03', '2023-03-03', NULL, NULL);
-INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `create_date`, `last_update`, `about_me`, `image_url`) VALUES (3, 'gina', 'test', 1, NULL, '2023-03-03', '2023-03-03', NULL, NULL);
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `create_date`, `last_update`) VALUES (1, 'admin', 'test', 1, 'ADMIN', '2023-03-03', '2023-03-03');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `create_date`, `last_update`) VALUES (2, 'rob', 'test', 1, NULL, '2023-03-03', '2023-03-03');
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `role`, `create_date`, `last_update`) VALUES (3, 'gina', 'test', 1, NULL, '2023-03-03', '2023-03-03');
 
 COMMIT;
 
@@ -210,11 +207,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `piefightdb`;
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (1, 'Apple Pie', 'https://images.albertsons-media.com/is/image/ABS/960311063?$ng-ecom-pdp-desktop$&defaultImage=Not_Available', NULL);
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (2, 'Strawberry Rhubarb Pie', 'https://goldbelly.imgix.net/uploads/showcase_media_asset/image/90724/rhubarb-pie.9516c50c471c8420823497f064f8cf2b.jpg?ixlib=react-9.9.0&ar=1%3A1&fit=crop&w=2048&auto=format', NULL);
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (3, 'Key Lime Pie', 'https://i.etsystatic.com/53752336/r/il/f0583a/6204378289/il_1588xN.6204378289_48ps.jpg', NULL);
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (4, 'Peach Cobbler', 'https://i.etsystatic.com/19742446/r/il/2a840f/5802025650/il_1588xN.5802025650_ei26.jpg', NULL);
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (5, 'Cream Cheese Cake', 'https://assets.omahasteaks.com/transform/02c1fa30-bcce-465d-a59e-59015d619a97/d_cc_105a?io=transform:fill,width:1086,height:465,gravity:center', NULL);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (1, 'Apple Pie', NULL, NULL);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (2, 'Strawberry Rhubarb Pie', NULL, NULL);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (3, 'Key Lime Pie', NULL, NULL);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (4, 'Peach Cobbler', NULL, NULL);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (5, 'Cream Cheese Cake', NULL, NULL);
 
 COMMIT;
 
@@ -253,9 +250,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `piefightdb`;
-INSERT INTO `recipe` (`id`, `name`, `description`, `image_url`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`) VALUES (1, 'Alton Brown\'s Apple Pie', NULL, 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2008/2/4/0/EA1115_Super_Apple_Pie.jpg.rend.hgtvcom.1280.1280.suffix/1371585656805.webp', NULL, NULL, NULL, NULL, 2, 1, '2024-06-06', '2024-06-06');
-INSERT INTO `recipe` (`id`, `name`, `description`, `image_url`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`) VALUES (2, 'Grammys Strawberry Rhubarb', NULL, 'https://houseofnasheats.com/wp-content/uploads/2021/11/Strawberry-Rhubarb-Pie-Square-1.jpg', NULL, NULL, NULL, NULL, 3, 2, '2024-06-06', '2024-06-06');
-INSERT INTO `recipe` (`id`, `name`, `description`, `image_url`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`) VALUES (3, 'Rob\'s Prizewinning Cheesecake', NULL, 'https://media.bergdorfgoodman.com/f_auto,q_auto:low,ar_5:7,c_fill,dpr_2.0,w_720/01/bg_3449901_100000_m', NULL, NULL, NULL, NULL, 2, 5, '2024-06-06', '2024-06-06');
+INSERT INTO `recipe` (`id`, `name`, `description`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`) VALUES (1, 'Alton Brown\'s Apple Pie', NULL, NULL, NULL, NULL, NULL, 2, 1, '2024-06-06', '2024-06-06');
+INSERT INTO `recipe` (`id`, `name`, `description`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`) VALUES (2, 'Grammys Strawberry Rhubarb', NULL, NULL, NULL, NULL, NULL, 3, 2, '2024-06-06', '2024-06-06');
+INSERT INTO `recipe` (`id`, `name`, `description`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`) VALUES (3, 'Rob\'s Prizewinning Cheesecake', NULL, NULL, NULL, NULL, NULL, 2, 5, '2024-06-06', '2024-06-06');
 
 COMMIT;
 

@@ -4,6 +4,12 @@
 	
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
  
+	<class>com.skilldistillery.piefight.entities.Pie</class>
+	<class>com.skilldistillery.piefight.entities.PieType</class>
+	<class>com.skilldistillery.piefight.entities.Recipe</class>
+	<class>com.skilldistillery.piefight.entities.RecipeComment</class>
+	<class>com.skilldistillery.piefight.entities.RecipeRating</class>
+	<class>com.skilldistillery.piefight.entities.RecipeRatingId</class>
 	<class>com.skilldistillery.piefight.entities.User</class>
 
     <properties>

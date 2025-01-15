@@ -8,28 +8,33 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
-public class Pie {
+@Table(name = "pie_type")
+public class PieType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
+	private String description;
 	@Column(name = "image_url")
 	private String imageUrl;
-	private String description;
 	
-	@OneToMany(mappedBy = "pie")
-	private List<Recipe> recipes;
-	
-	@ManyToMany(mappedBy = "pies")
-	private List<PieType> pieTypes;
+	@ManyToMany
+	@JoinTable(
+			name = "pie_has_pie_type",
+			joinColumns = @JoinColumn(name = "pie_type_id"),
+			inverseJoinColumns = @JoinColumn(name = "pie_id")
+	)
+	private List<Pie> pies;
 
-	public Pie() {
+	public PieType() {
 		super();
 	}
 
@@ -49,14 +54,6 @@ public class Pie {
 		this.name = name;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -65,20 +62,20 @@ public class Pie {
 		this.description = description;
 	}
 
-	public List<Recipe> getRecipes() {
-		return recipes;
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
-	public void setRecipes(List<Recipe> recipes) {
-		this.recipes = recipes;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
-	public List<PieType> getPieTypes() {
-		return pieTypes;
+	public List<Pie> getPies() {
+		return pies;
 	}
 
-	public void setPieTypes(List<PieType> pieTypes) {
-		this.pieTypes = pieTypes;
+	public void setPies(List<Pie> pies) {
+		this.pies = pies;
 	}
 
 	@Override
@@ -94,15 +91,15 @@ public class Pie {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pie other = (Pie) obj;
+		PieType other = (PieType) obj;
 		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Pie [id=").append(id).append(", name=").append(name).append(", imageUrl=").append(imageUrl)
-				.append(", description=").append(description).append("]");
+		builder.append("PieType [id=").append(id).append(", name=").append(name).append(", description=")
+				.append(description).append(", imageUrl=").append(imageUrl).append("]");
 		return builder.toString();
 	}
 
