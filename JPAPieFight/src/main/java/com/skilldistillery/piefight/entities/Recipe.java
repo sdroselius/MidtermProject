@@ -31,6 +31,7 @@ public class Recipe {
 	private Integer cookTimeMinutes;
 	private String ingredients;
 	private String instructions;
+	private boolean enabled;
 
 	@Column(name = "create_date")
 	@CreationTimestamp
@@ -50,6 +51,9 @@ public class Recipe {
 	
 	@OneToMany(mappedBy = "recipe")
 	private List<RecipeComment> recipeComments;
+	
+	@OneToMany(mappedBy = "recipe")
+	private List<RecipeRating> recipeRatings;
 
 	public Recipe() {
 		super();
@@ -111,6 +115,14 @@ public class Recipe {
 		this.instructions = instructions;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
@@ -151,6 +163,14 @@ public class Recipe {
 		this.recipeComments = recipeComments;
 	}
 
+	public List<RecipeRating> getRecipeRatings() {
+		return recipeRatings;
+	}
+
+	public void setRecipeRatings(List<RecipeRating> recipeRatings) {
+		this.recipeRatings = recipeRatings;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -175,7 +195,7 @@ public class Recipe {
 				.append(description).append(", prepTimeMinutes=").append(prepTimeMinutes).append(", cookTimeMinutes=")
 				.append(cookTimeMinutes).append(", ingredients=").append(ingredients).append(", instructions=")
 				.append(instructions).append(", createDate=").append(createDate).append(", lastUpdate=")
-				.append(lastUpdate).append("]");
+				.append(lastUpdate).append(", user=").append(user).append(", pie=").append(pie).append("]");
 		return builder.toString();
 	}
 

@@ -33,4 +33,38 @@ public class UserDaoImpl implements UserDAO {
 		return authenticatedUser;
 	}
 
+	@Override
+	public User registerUser(User user) {
+		try {
+			user.setRole("USER");
+			user.setEnabled(true);
+			em.persist(user);
+			return user;
+		} catch (Exception e) {
+			System.err.println("Error registering user " + user.getUsername());
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public boolean disableUserById(int userId) {
+		User managedUser = em.find(User.class, userId);
+		if (managedUser != null) {
+			managedUser.setEnabled(false);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean enableUserById(int userId) {
+		User managedUser = em.find(User.class, userId);
+		if (managedUser != null) {
+			managedUser.setEnabled(true);
+			return true;
+		}
+		return false;
+	}
+
 }

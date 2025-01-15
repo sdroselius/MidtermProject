@@ -58,8 +58,14 @@ public class User {
 	private List<Recipe> recipes;
 	
 	@OneToMany(mappedBy = "user")
+	private List<RecipeComment> recipeComments;
+	
+	@OneToMany(mappedBy = "user")
 	private List<RecipeRating> recipeRatings;
-
+	
+	@OneToMany(mappedBy = "addedBy")
+	private List<Pie> piesAdded;
+	
 	public User() {
 		super();
 	}
@@ -128,12 +134,28 @@ public class User {
 		this.recipes = recipes;
 	}
 
+	public List<RecipeComment> getRecipeComments() {
+		return recipeComments;
+	}
+
+	public void setRecipeComments(List<RecipeComment> recipeComments) {
+		this.recipeComments = recipeComments;
+	}
+
 	public List<RecipeRating> getRecipeRatings() {
 		return recipeRatings;
 	}
 
 	public void setRecipeRatings(List<RecipeRating> recipeRatings) {
 		this.recipeRatings = recipeRatings;
+	}
+
+	public List<Pie> getPiesAdded() {
+		return piesAdded;
+	}
+
+	public void setPiesAdded(List<Pie> piesAdded) {
+		this.piesAdded = piesAdded;
 	}
 
 	@Override
@@ -157,7 +179,9 @@ public class User {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("User [id=").append(id).append(", username=").append(username).append(", password=")
-				.append(password).append(", enabled=").append(enabled).append(", role=").append(role).append("]");
+				.append(password).append(", enabled=").append(enabled).append(", role=").append(role)
+				.append(", imageUrl=").append(imageUrl).append(", aboutMe=").append(aboutMe).append(", createDate=")
+				.append(createDate).append(", lastUpdate=").append(lastUpdate).append("]");
 		return builder.toString();
 	}
 

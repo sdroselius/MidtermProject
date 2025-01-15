@@ -25,6 +25,8 @@ public class RecipeComment {
 	private int id;
 
 	private String content;
+	private boolean enabled;
+	
 	@Column(name = "create_date")
 	@CreationTimestamp
 	private LocalDateTime createDate;
@@ -62,6 +64,14 @@ public class RecipeComment {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public LocalDateTime getCreateDate() {
@@ -125,7 +135,8 @@ public class RecipeComment {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("RecipeComment [id=").append(id).append(", content=").append(content).append(", createDate=")
-				.append(createDate).append("]");
+				.append(createDate).append(", recipe=").append(recipe).append(", user=").append(user)
+				.append(", parentComment=").append(parentComment).append("]");
 		return builder.toString();
 	}
 

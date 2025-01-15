@@ -45,7 +45,17 @@ CREATE TABLE IF NOT EXISTS `pie` (
   `name` VARCHAR(100) NOT NULL,
   `image_url` VARCHAR(2000) NULL,
   `description` TEXT NULL,
-  PRIMARY KEY (`id`))
+  `added_by_id` INT NOT NULL,
+  `create_date` DATETIME NULL,
+  `last_update` DATETIME NULL,
+  `enabled` TINYINT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_pie_user1_idx` (`added_by_id` ASC) VISIBLE,
+  CONSTRAINT `fk_pie_user1`
+    FOREIGN KEY (`added_by_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -105,6 +115,7 @@ CREATE TABLE IF NOT EXISTS `recipe` (
   `pie_id` INT NOT NULL,
   `create_date` DATETIME NULL,
   `last_update` DATETIME NULL,
+  `enabled` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_recipe_user1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_recipe_pie1_idx` (`pie_id` ASC) VISIBLE,
@@ -161,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `recipe_comment` (
   `user_id` INT NOT NULL,
   `recipe_id` INT NOT NULL,
   `in_reply_to_id` INT NULL,
+  `enabled` TINYINT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_recipe_comment_user1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_recipe_comment_recipe1_idx` (`recipe_id` ASC) VISIBLE,
@@ -210,11 +222,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `piefightdb`;
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (1, 'Apple Pie', 'https://images.albertsons-media.com/is/image/ABS/960311063?$ng-ecom-pdp-desktop$&defaultImage=Not_Available', NULL);
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (2, 'Strawberry Rhubarb Pie', 'https://goldbelly.imgix.net/uploads/showcase_media_asset/image/90724/rhubarb-pie.9516c50c471c8420823497f064f8cf2b.jpg?ixlib=react-9.9.0&ar=1%3A1&fit=crop&w=2048&auto=format', NULL);
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (3, 'Key Lime Pie', 'https://i.etsystatic.com/53752336/r/il/f0583a/6204378289/il_1588xN.6204378289_48ps.jpg', NULL);
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (4, 'Peach Cobbler', 'https://i.etsystatic.com/19742446/r/il/2a840f/5802025650/il_1588xN.5802025650_ei26.jpg', NULL);
-INSERT INTO `pie` (`id`, `name`, `image_url`, `description`) VALUES (5, 'Cream Cheese Cake', 'https://assets.omahasteaks.com/transform/02c1fa30-bcce-465d-a59e-59015d619a97/d_cc_105a?io=transform:fill,width:1086,height:465,gravity:center', NULL);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`, `added_by_id`, `create_date`, `last_update`, `enabled`) VALUES (1, 'Apple Pie', 'https://images.albertsons-media.com/is/image/ABS/960311063?$ng-ecom-pdp-desktop$&defaultImage=Not_Available', NULL, 1, '2022-02-02', '2022-02-02', 1);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`, `added_by_id`, `create_date`, `last_update`, `enabled`) VALUES (2, 'Strawberry Rhubarb Pie', 'https://goldbelly.imgix.net/uploads/showcase_media_asset/image/90724/rhubarb-pie.9516c50c471c8420823497f064f8cf2b.jpg?ixlib=react-9.9.0&ar=1%3A1&fit=crop&w=2048&auto=format', NULL, 1, '2022-02-02', '2022-02-02', 1);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`, `added_by_id`, `create_date`, `last_update`, `enabled`) VALUES (3, 'Key Lime Pie', 'https://i.etsystatic.com/53752336/r/il/f0583a/6204378289/il_1588xN.6204378289_48ps.jpg', NULL, 1, '2022-02-02', '2022-02-02', 1);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`, `added_by_id`, `create_date`, `last_update`, `enabled`) VALUES (4, 'Peach Cobbler', 'https://i.etsystatic.com/19742446/r/il/2a840f/5802025650/il_1588xN.5802025650_ei26.jpg', NULL, 1, '2022-02-02', '2022-02-02', 1);
+INSERT INTO `pie` (`id`, `name`, `image_url`, `description`, `added_by_id`, `create_date`, `last_update`, `enabled`) VALUES (5, 'Cream Cheese Cake', 'https://assets.omahasteaks.com/transform/02c1fa30-bcce-465d-a59e-59015d619a97/d_cc_105a?io=transform:fill,width:1086,height:465,gravity:center', NULL, 2, '2022-02-02', '2022-02-02', 1);
 
 COMMIT;
 
@@ -253,9 +265,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `piefightdb`;
-INSERT INTO `recipe` (`id`, `name`, `description`, `image_url`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`) VALUES (1, 'Alton Brown\'s Apple Pie', NULL, 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2008/2/4/0/EA1115_Super_Apple_Pie.jpg.rend.hgtvcom.1280.1280.suffix/1371585656805.webp', NULL, NULL, NULL, NULL, 2, 1, '2024-06-06', '2024-06-06');
-INSERT INTO `recipe` (`id`, `name`, `description`, `image_url`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`) VALUES (2, 'Grammys Strawberry Rhubarb', NULL, 'https://houseofnasheats.com/wp-content/uploads/2021/11/Strawberry-Rhubarb-Pie-Square-1.jpg', NULL, NULL, NULL, NULL, 3, 2, '2024-06-06', '2024-06-06');
-INSERT INTO `recipe` (`id`, `name`, `description`, `image_url`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`) VALUES (3, 'Rob\'s Prizewinning Cheesecake', NULL, 'https://media.bergdorfgoodman.com/f_auto,q_auto:low,ar_5:7,c_fill,dpr_2.0,w_720/01/bg_3449901_100000_m', NULL, NULL, NULL, NULL, 2, 5, '2024-06-06', '2024-06-06');
+INSERT INTO `recipe` (`id`, `name`, `description`, `image_url`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`, `enabled`) VALUES (1, 'Alton Brown\'s Apple Pie', NULL, 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2008/2/4/0/EA1115_Super_Apple_Pie.jpg.rend.hgtvcom.1280.1280.suffix/1371585656805.webp', NULL, NULL, NULL, NULL, 2, 1, '2024-06-06', '2024-06-06', 1);
+INSERT INTO `recipe` (`id`, `name`, `description`, `image_url`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`, `enabled`) VALUES (2, 'Grammys Strawberry Rhubarb', NULL, 'https://houseofnasheats.com/wp-content/uploads/2021/11/Strawberry-Rhubarb-Pie-Square-1.jpg', NULL, NULL, NULL, NULL, 3, 2, '2024-06-06', '2024-06-06', 1);
+INSERT INTO `recipe` (`id`, `name`, `description`, `image_url`, `prep_time_minutes`, `cook_time_minutes`, `ingredients`, `instructions`, `user_id`, `pie_id`, `create_date`, `last_update`, `enabled`) VALUES (3, 'Rob\'s Prizewinning Cheesecake', NULL, 'https://media.bergdorfgoodman.com/f_auto,q_auto:low,ar_5:7,c_fill,dpr_2.0,w_720/01/bg_3449901_100000_m', NULL, NULL, NULL, NULL, 2, 5, '2024-06-06', '2024-06-06', 1);
 
 COMMIT;
 
@@ -279,9 +291,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `piefightdb`;
-INSERT INTO `recipe_comment` (`id`, `content`, `create_date`, `user_id`, `recipe_id`, `in_reply_to_id`) VALUES (1, 'Warning: pie birds don\'t work', '2024-04-04', 2, 1, NULL);
-INSERT INTO `recipe_comment` (`id`, `content`, `create_date`, `user_id`, `recipe_id`, `in_reply_to_id`) VALUES (2, 'I agree', '2024-04-05', 1, 1, 1);
-INSERT INTO `recipe_comment` (`id`, `content`, `create_date`, `user_id`, `recipe_id`, `in_reply_to_id`) VALUES (3, 'I can\'t get the topping right', '2024-05-06', 3, 3, NULL);
+INSERT INTO `recipe_comment` (`id`, `content`, `create_date`, `user_id`, `recipe_id`, `in_reply_to_id`, `enabled`) VALUES (1, 'Warning: pie birds don\'t work', '2024-04-04', 2, 1, NULL, 1);
+INSERT INTO `recipe_comment` (`id`, `content`, `create_date`, `user_id`, `recipe_id`, `in_reply_to_id`, `enabled`) VALUES (2, 'I agree', '2024-04-05', 1, 1, 1, 1);
+INSERT INTO `recipe_comment` (`id`, `content`, `create_date`, `user_id`, `recipe_id`, `in_reply_to_id`, `enabled`) VALUES (3, 'I can\'t get the topping right', '2024-05-06', 3, 3, NULL, 1);
 
 COMMIT;
 

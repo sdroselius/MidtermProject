@@ -1,14 +1,20 @@
 package com.skilldistillery.piefight.entities;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -22,12 +28,24 @@ public class Pie {
 	@Column(name = "image_url")
 	private String imageUrl;
 	private String description;
-	
+
+	@Column(name = "create_date")
+	@CreationTimestamp
+	private LocalDateTime createDate;
+
+	@Column(name = "last_update")
+	@UpdateTimestamp
+	private LocalDateTime lastUpdate;
+
 	@OneToMany(mappedBy = "pie")
 	private List<Recipe> recipes;
 	
 	@ManyToMany(mappedBy = "pies")
 	private List<PieType> pieTypes;
+	
+	@ManyToOne
+	@JoinColumn(name = "added_by_id")
+	private User addedBy;
 
 	public Pie() {
 		super();
@@ -65,6 +83,22 @@ public class Pie {
 		this.description = description;
 	}
 
+	public LocalDateTime getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(LocalDateTime createDate) {
+		this.createDate = createDate;
+	}
+
+	public LocalDateTime getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(LocalDateTime lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
 	public List<Recipe> getRecipes() {
 		return recipes;
 	}
@@ -79,6 +113,14 @@ public class Pie {
 
 	public void setPieTypes(List<PieType> pieTypes) {
 		this.pieTypes = pieTypes;
+	}
+
+	public User getAddedBy() {
+		return addedBy;
+	}
+
+	public void setAddedBy(User addedBy) {
+		this.addedBy = addedBy;
 	}
 
 	@Override

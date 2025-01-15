@@ -1,10 +1,12 @@
 package com.skilldistillery.piefight.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.OneToMany;
 
 @Embeddable
 public class RecipeRatingId implements Serializable {

@@ -124,7 +124,7 @@ public class RecipeRating {
 		StringBuilder builder = new StringBuilder();
 		builder.append("RecipeRating [id=").append(id).append(", rating=").append(rating).append(", remarks=")
 				.append(remarks).append(", createDate=").append(createDate).append(", lastUpdate=").append(lastUpdate)
-				.append("]");
+				.append(", recipe=").append(recipe).append(", user=").append(user).append("]");
 		return builder.toString();
 	}
 

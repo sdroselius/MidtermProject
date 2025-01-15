@@ -28,9 +28,9 @@ public class PieDaoJpaImpl implements PieDAO {
 	@Override
 	public List<Pie> topNRandom(int howMany) {
 		String sql = "SELECT * FROM pie ORDER BY RAND()";
-		return em.createNativeQuery(sql, Pie.class).setParameter("howMany", howMany)
-		  .setMaxResults(howMany)
-		  .getResultList();	
+		return em.createNativeQuery(sql, Pie.class)
+		         .setMaxResults(howMany)
+		         .getResultList();	
 	}
 	
 	@Override
@@ -40,7 +40,8 @@ public class PieDaoJpaImpl implements PieDAO {
 
 	@Override
 	public Pie create(Pie pie, User user) {
-		// TODO Auto-generated method stub
+		pie.setAddedBy(user);
+		em.persist(pie);
 		return null;
 	}
 
