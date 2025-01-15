@@ -1,5 +1,6 @@
 package com.skilldistillery.piefight.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,7 +78,26 @@ public class PieType {
 	public void setPies(List<Pie> pies) {
 		this.pies = pies;
 	}
+	
+	public boolean addPie(Pie pie) {
+		if (pies == null) { pies = new ArrayList<>(); }
+		if ( !pies.contains(pie)) {
+			pies.add(pie);
+			pie.addPieType(this);
+			return true;
+		}
+		return false;
+	}
 
+	public boolean removePie(Pie pie) {
+		if (pies != null && pies.contains(pie)) {
+			pies.remove(pie);
+			pie.removePieType(this);
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

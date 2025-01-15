@@ -1,6 +1,7 @@
 package com.skilldistillery.piefight.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +29,7 @@ public class Pie {
 	@Column(name = "image_url")
 	private String imageUrl;
 	private String description;
+	private boolean enabled;
 
 	@Column(name = "create_date")
 	@CreationTimestamp
@@ -83,6 +85,14 @@ public class Pie {
 		this.description = description;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public LocalDateTime getCreateDate() {
 		return createDate;
 	}
@@ -114,7 +124,26 @@ public class Pie {
 	public void setPieTypes(List<PieType> pieTypes) {
 		this.pieTypes = pieTypes;
 	}
+	
+	public boolean addPieType(PieType pieType) {
+		if (pieTypes == null) { pieTypes = new ArrayList<>(); }
+		if (! pieTypes.contains(pieType)) {
+			pieTypes.add(pieType);
+			pieType.addPie(this);
+			return true;
+		}
+		return false;
+	}
 
+	public boolean removePieType(PieType pieType) {
+		if (pieTypes != null && pieTypes.contains(pieType)) {
+			pieTypes.remove(pieType);
+			pieType.removePie(this);
+			return true;
+		}
+		return false;
+	}
+	
 	public User getAddedBy() {
 		return addedBy;
 	}

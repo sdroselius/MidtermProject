@@ -13,5 +13,7 @@ public interface PieDAO {
 	Pie create(Pie pie, User user);
 	Pie update(int pieId, Pie updatingPie, User user);
 	boolean deleteById(int pieId, User user);
+	void addPieType(int pieId, int pieTypeId);
+	void removePieType(int pieId, int pieTypeId);
 
 }
