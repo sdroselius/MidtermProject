@@ -12,6 +12,7 @@ public interface RecipeDAO {
 	Recipe findById(int recipeId);
 	Recipe create(Recipe recipe, User user);
 	Recipe update(int recipeId, Recipe updatingRecipe, User user);
-	boolean deleteById(int recipeId, int userId);
+	boolean deleteById(int recipeId, User user);
+	boolean enableRecipe(int recipeId, User user);
 
 }

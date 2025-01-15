@@ -75,19 +75,23 @@ public class PieDaoJpaImpl implements PieDAO {
 	}
 
 	@Override
-	public void addPieType(int pieId, int pieTypeId) {
+	public boolean addPieType(int pieId, int pieTypeId) {
 		Pie pie = em.find(Pie.class, pieId);
 		PieType pieType = em.find(PieType.class, pieTypeId);
 		if (pie != null && pieType != null) {
-			//FIXME
+			return pie.addPieType(pieType);
 		}
-		
+		return false;
 	}
 
 	@Override
-	public void removePieType(int pieId, int pieTypeId) {
-		// TODO Auto-generated method stub
-		
+	public boolean removePieType(int pieId, int pieTypeId) {
+		Pie pie = em.find(Pie.class, pieId);
+		PieType pieType = em.find(PieType.class, pieTypeId);
+		if (pie != null && pieType != null) {
+			return pie.removePieType(pieType);
+		}
+		return false;
 	}
 
 }

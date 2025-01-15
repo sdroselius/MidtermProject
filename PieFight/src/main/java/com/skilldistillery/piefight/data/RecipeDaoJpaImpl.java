@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.piefight.entities.Pie;
 import com.skilldistillery.piefight.entities.Recipe;
 import com.skilldistillery.piefight.entities.User;
 
@@ -20,7 +21,7 @@ public class RecipeDaoJpaImpl implements RecipeDAO {
 	
 	@Override
 	public List<Recipe> findAll() {
-		String jpql = "SELECT r FROM Recipe r";
+		String jpql = "SELECT r FROM Recipe r WHERE r.enabled = true";
 		return em.createQuery(jpql, Recipe.class).getResultList();
 	}
 
@@ -42,7 +43,8 @@ public class RecipeDaoJpaImpl implements RecipeDAO {
 		User creatingUser = em.find(User.class, user.getId());
 		if (creatingUser != null) {
 			recipe.setUser(creatingUser);
-			em.persist(creatingUser);
+			recipe.setEnabled(true);
+			em.persist(recipe);
 			return recipe;
 		}
 		return null;
@@ -50,13 +52,46 @@ public class RecipeDaoJpaImpl implements RecipeDAO {
 
 	@Override
 	public Recipe update(int recipeId, Recipe updatingRecipe, User user) {
-		// TODO Auto-generated method stub
+		Recipe managedRecipe = em.find(Recipe.class, recipeId);
+		if (managedRecipe != null) {
+			if (managedRecipe.getUser().getId() == user.getId()
+					|| user.getRole().equals("ADMIN")) {
+				managedRecipe.setCookTimeMinutes(updatingRecipe.getCookTimeMinutes());
+				managedRecipe.setPrepTimeMinutes(updatingRecipe.getPrepTimeMinutes());
+				managedRecipe.setDescription(updatingRecipe.getDescription());
+				managedRecipe.setIngredients(updatingRecipe.getIngredients());
+				managedRecipe.setInstructions(updatingRecipe.getInstructions());
+				managedRecipe.setName(updatingRecipe.getName());
+				em.flush();
+				return managedRecipe;
+			}
+		}
 		return null;
 	}
 
 	@Override
-	public boolean deleteById(int recipeId, int userId) {
-		// TODO Auto-generated method stub
+	public boolean deleteById(int recipeId, User user) {
+		Recipe managedRecipe = em.find(Recipe.class, recipeId);
+		if (managedRecipe != null) {
+			if (managedRecipe.getUser().getId() == user.getId()
+					|| user.getRole().equals("ADMIN")) {
+				managedRecipe.setEnabled(false);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean enableRecipe(int recipeId, User user) {
+		Recipe managedRecipe = em.find(Recipe.class, recipeId);
+		if (managedRecipe != null) {
+			if (managedRecipe.getUser().getId() == user.getId()
+					|| user.getRole().equals("ADMIN")) {
+				managedRecipe.setEnabled(true);
+				return true;
+			}
+		}
 		return false;
 	}
 
