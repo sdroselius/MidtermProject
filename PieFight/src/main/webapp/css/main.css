@@ -1,1 +1,28 @@
 @charset "UTF-8";
+
+.profileImage {
+	width: 20%;
+	float: left;
+}
+
+.logo-image {
+	width: 10vw;
+}
+
+.pie-thumbnail-image {
+	width: 10vw;
+	
+}
+
+.recipe-list {
+	width: 60%;
+}
+
+.pie-image {
+	width: 40%;
+	float: left;
+}
+
+pre {
+	font-family: sans-serif;
+}

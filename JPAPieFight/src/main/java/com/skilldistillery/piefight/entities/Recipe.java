@@ -25,6 +25,8 @@ public class Recipe {
 
 	private String name;
 	private String description;
+	@Column(name = "image_url")
+	private String imageUrl;
 	@Column(name = "prep_time_minutes")
 	private Integer prepTimeMinutes;
 	@Column(name = "cook_time_minutes")
@@ -81,6 +83,14 @@ public class Recipe {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public Integer getPrepTimeMinutes() {

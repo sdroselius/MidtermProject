@@ -13,7 +13,9 @@
 
 <main class="container">
 	<h1>Welcome to the Pie Fight</h1>
-	
+	<div class="mainPageCarousel">
+	<jsp:include page="carousel.jsp"/>
+	</div>
 	
 </main>
 <jsp:include page="bootstrapFoot.jsp"/>

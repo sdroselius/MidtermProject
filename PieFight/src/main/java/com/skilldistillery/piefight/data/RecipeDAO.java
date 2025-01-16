@@ -9,6 +9,7 @@ public interface RecipeDAO {
 	
 	List<Recipe> findAll();
 	List<Recipe> findByUserId(int userId);
+	List<Recipe> findByPieId(int pieId);
 	Recipe findById(int recipeId);
 	Recipe create(Recipe recipe, User user);
 	Recipe update(int recipeId, Recipe updatingRecipe, User user);

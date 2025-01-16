@@ -1,6 +1,9 @@
 package com.skilldistillery.piefight.data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -94,4 +97,33 @@ public class PieDaoJpaImpl implements PieDAO {
 		return false;
 	}
 
+	@Override
+	public List<Pie> findByPieType(int pieTypeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Pie> groupByPieType() {
+		String jpql = "SELECT pie FROM Pie pie JOIN pie.pieTypes pieTypes WHERE pie.enabled = true ORDER BY pieTypes.name, pie.name";
+		List<Pie> pies = em.createQuery(jpql, Pie.class).getResultList();
+		return pies;
+	}
+
+	@Override
+	public Map<String,List<Pie>> mapByPieType() {
+		String jpql = "SELECT pieTypes.name, pie FROM Pie pie JOIN pie.pieTypes pieTypes WHERE pie.enabled = true ORDER BY pieTypes.name, pie.name";
+		List<Object[]> result = em.createQuery(jpql, Object[].class).getResultList();
+		System.out.println(result);
+		Map<String,List<Pie>> pieMap = new HashMap<>();
+		for (Object[] objects : result) {
+			String typeName = (String) objects[0];
+			if (! pieMap.containsKey(typeName)) {
+				pieMap.put(typeName, new ArrayList<>());
+			}
+			pieMap.get(typeName).add((Pie)objects[1]);
+		}
+		return pieMap;
+	}
+	
 }

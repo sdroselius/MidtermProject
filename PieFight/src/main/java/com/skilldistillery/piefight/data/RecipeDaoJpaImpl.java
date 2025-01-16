@@ -95,4 +95,12 @@ public class RecipeDaoJpaImpl implements RecipeDAO {
 		return false;
 	}
 
+	@Override
+	public List<Recipe> findByPieId(int pieId) {
+		String jpql = "SELECT r FROM Recipe r WHERE r.pie.id = :pid";
+		return em.createQuery(jpql, Recipe.class)
+				 .setParameter("pid", pieId)
+				 .getResultList();
+	}
+
 }

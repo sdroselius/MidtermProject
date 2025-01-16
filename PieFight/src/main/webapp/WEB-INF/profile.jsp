@@ -20,14 +20,19 @@
 	<h1>${user.username } Profile</h1>
 	<c:choose>
 	<c:when test="${empty user.imageUrl}">
-	<img alt="${user.username profile image}" src="images/defaultProfile.jpg" class="profileImage">
+	<img alt="${user.username} profile image" src="images/defaultProfile.jpg" class="profileImage">
 	</c:when>
 	<c:otherwise>
-	<img alt="${user.username profile image}" src="${user.imageUrl }" class="profileImage">
+	<img alt="${user.username} profile image" src="${user.imageUrl }" class="profileImage">
 	</c:otherwise>
 	</c:choose>
-		
-		
+	<h2>${user.firstName } ${user.lastName }</h2>
+	<h6>Member since ${user.createDate.getMonth()} ${user.createDate.getYear()} </h6>
+	<div class="about-me">${user.aboutMe }</div>
+	
+	<hr>
+	<h3>Recipes</h3>
+	<jsp:include page="recipeListFragment.jsp"/>	
 		
 	</c:otherwise>
 	
