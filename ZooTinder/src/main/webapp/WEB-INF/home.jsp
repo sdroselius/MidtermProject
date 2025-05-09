@@ -10,5 +10,7 @@
 
 <h1>Welcome to Zoo Tinder</h1>
 
+${SMOKETEST}
+
 </body>
 </html>
