@@ -18,3 +18,8 @@
 	height: 20vh;
 	width: auto;
 }
+
+pre.description {
+	font-family: sans-serif;
+	white-space: pre-wrap;
+}

@@ -21,7 +21,7 @@
 	</div>
 	
 	<h1>${zoo.name}</h1>
-	<blockquote>${zoo.description}</blockquote>
+	<blockquote><pre class="description">${zoo.description}</pre></blockquote>
 	<hr>
 	<div>
 	Zookeeper: ${zoo.zookeeper.firstName }  ${zoo.zookeeper.lastName } <br>

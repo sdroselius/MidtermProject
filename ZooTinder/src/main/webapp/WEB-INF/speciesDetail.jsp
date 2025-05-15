@@ -22,7 +22,7 @@
 					<img class="speciesMainImage" alt="${species.imageUrl}" src="${species.imageUrl}">
 				</div>
 				<h4>${species.genus} ${species.species}</h4>
-				<blockquote>${species.description}</blockquote>
+				<blockquote><pre class="description">${species.description}</pre></blockquote>
 				
 				<hr>
 		<table class="table table-striped table-hover">
