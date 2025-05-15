@@ -1,0 +1,20 @@
+.speciesMainImage {
+	height: 40vh;
+	width: auto;
+}
+
+.zooImageThumbnail {
+	height: 10vh;
+	width: auto;
+}
+
+.zooImage {
+	height: auto;
+	max-height: 30vh;
+	width: 90%;
+}
+
+.zooKeeperImage {
+	height: 20vh;
+	width: auto;
+}
